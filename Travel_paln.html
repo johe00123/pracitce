@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f1efeb">
+<title>춘천 가족 여행</title>
+<meta property="og:title" content="춘천 가족 여행">
+<meta property="og:description" content="관광지, 식당, 카페 후보 모음">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --ink:#222; --sub:#6f6f6f; --line:rgba(0,0,0,.12);
+    --mark:#ffe46b; --pen:#2a5bd7;
+    --navbg:rgba(255,255,255,.75);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:"Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    color:var(--ink); font-size:17px; line-height:1.7; background:#fff;
+    word-break:keep-all; -webkit-font-smoothing:antialiased;
+  }
+  body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bgimg)}
+
+  /* 웜그레이 배경 */
+  :root{--bgimg:#f1efeb;--navbg:rgba(241,239,235,.88)}
+  .wrap{max-width:520px;margin:0 auto;padding:0 20px}
+
+  header.wrap{padding-top:56px;padding-bottom:40px}
+  .small{font-size:15px;color:var(--sub)}
+  h1{font-family:"Gowun Batang",serif;font-weight:700;font-size:34px;line-height:1.35;margin:6px 0 0}
+  .hand{font-family:"Nanum Pen Script",cursive;color:var(--pen);font-size:25px;line-height:1.3;margin-top:18px;transform:rotate(-1.5deg);transform-origin:left}
+
+  nav{position:sticky;top:0;z-index:5;background:var(--navbg);
+      backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+      border-top:1px solid rgba(0,0,0,.18);border-bottom:1px solid rgba(0,0,0,.18)}
+  .tabs{display:flex}
+  .tab{flex:1;border:0;background:none;font:inherit;font-size:18px;color:var(--sub);padding:16px 0 13px;cursor:pointer;border-bottom:3px solid transparent;-webkit-tap-highlight-color:transparent}
+  .tab[aria-selected="true"]{color:var(--ink);font-weight:700;border-bottom-color:var(--ink)}
+  .tab:focus-visible,.btn:focus-visible{outline:2px solid var(--pen);outline-offset:2px}
+
+  main{padding:8px 0 40px}
+  main{padding-top:20px}
+  .place{background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:12px;padding:22px 20px;margin-bottom:16px;
+         box-shadow:0 1px 0 rgba(0,0,0,.04);overflow:hidden}
+  .photo{display:block;width:calc(100% + 40px);margin:-22px -20px 18px;aspect-ratio:4/3;object-fit:cover;background:#f2f2f2}
+  .area{font-size:15px;color:var(--sub)}
+  .name{font-family:"Gowun Batang",serif;font-weight:700;font-size:25px;line-height:1.4;display:inline}
+  .must .name{background:linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%);padding:0 2px}
+  .memo{font-family:"Nanum Pen Script",cursive;color:var(--pen);font-size:23px;margin-left:8px;white-space:nowrap}
+  .desc{margin-top:10px}
+  .facts{margin-top:12px;font-size:16px;color:#444}
+  .facts{display:grid;grid-template-columns:44px 1fr;column-gap:8px;row-gap:6px;align-items:start}
+  .facts dt{color:var(--sub)}
+  .facts dd{min-width:0}
+  .facts dd a{color:var(--ink)}
+  .near{background:none;border:0;font:inherit;color:var(--pen);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0}
+  .notes{margin-top:10px;padding-left:18px;font-size:16px;color:#444}
+  .notes li + li{margin-top:2px}
+  .tags{margin-top:10px;font-size:15px;color:var(--sub)}
+  .place.flash{animation:flash 1.2s ease}
+  @keyframes flash{0%,40%{box-shadow:0 0 0 3px var(--mark)}100%{box-shadow:0 1px 0 rgba(0,0,0,.04)}}
+  .btns{display:flex;gap:8px;margin-top:18px}
+  .btn{flex:1;display:flex;align-items:center;justify-content:center;min-height:50px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:16px;font-weight:600;border-radius:4px}
+  .btn{background:rgba(255,255,255,.75)}
+  .btn:active{background:#fff}
+  main.wrap{padding-top:24px;padding-bottom:40px}
+
+  .empty{padding:60px 0;text-align:center;color:var(--sub)}
+  footer{padding:20px 0 48px;text-align:center}
+  footer .hand{transform:none;font-size:24px;margin:0}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <p class="small" id="tripSub"></p>
+  <h1 id="tripTitle"></h1>
+  <p class="hand" id="tripNote"></p>
+</header>
+
+<nav><div class="wrap"><div class="tabs" role="tablist" id="tabs"></div></div></nav>
+
+<main class="wrap" id="list"></main>
+
+<footer class="wrap"><p class="hand" id="tripBye"></p></footer>
+
+<script>
+/* ================= 여기만 수정하면 됨 ================= */
+const TRIP = {
+  sub: "",
+  title: "춘천 가족 여행",
+  note: "",
+  bye: ""
+};
+
+/*
+  name 이름 / desc 한줄 설명 / hours 시간 / off 휴무 / phone 전화 / parking 주차
+  notes 메모 목록 / near 가까운 곳(다른 장소 이름) / tags 태그
+  map 네이버 지도 링크 / ref 참고 링크(블로그 등) / memo 손글씨 메모 / must 형광펜 / img 사진
+*/
+const PLACES = {
+  spot: [
+    { name:"소양호유람선",
+      desc:"편도 약 15~17분.",
+      hours:"10:00 – 17:00, 약 30~60분 간격 운항",
+      phone:"033-242-2455",
+      parking:"소양강댐 3공영주차장 추천. 선착장 바로 앞 주차장은 자리 잡기 어렵다고 함.",
+      notes:["날씨에 따라 운항이 바뀔 수 있음"],
+      memo:"가기 전에 전화!",
+      near:["청평사"],
+      ref:"https://blog.naver.com/lightairs/224340199950",
+      query:"춘천 소양호유람선" },
+    { name:"청평사",
+      desc:"소양호유람선 타고 갈 수 있음.",
+      parking:"유람선 타고 가서 주차 필요 없음",
+      near:["소양호유람선"],
+      map:"https://naver.me/FIf7vnEj",
+      query:"춘천 청평사" }
+  ],
+  food: [
+    { name:"통나무집닭갈비 본점",
+      desc:"방송에도 나온 유명한 곳.",
+      hours:"매일 10:30 – 21:30 (라스트오더 20:30)",
+      off:"브레이크타임, 정기휴무 없음",
+      parking:"매장 앞 넓은 주차장",
+      tags:["블루리본"],
+      near:["어스17"],
+      map:"https://map.naver.com/p/entry/place/11544030",
+      query:"춘천 통나무집닭갈비 본점" },
+    { name:"소양댐 계춘닭갈비",
+      hours:"11:00 – 21:00",
+      off:"수요일 정기휴무",
+      parking:"가능",
+      notes:["남녀 화장실 구분","마당에 커피 마실 공간"],
+      near:["카페나스"],
+      map:"https://map.naver.com/p/entry/place/1221433282",
+      query:"소양댐 계춘닭갈비" },
+    { name:"샘밭막국수 본점",
+      desc:"여러 방송 매체에 방영됨. 일반 막국수와 순메밀막국수가 있음.",
+      hours:"10:00 – 20:00",
+      parking:"매장 바로 앞 주차장, 매장 뒤쪽에 넓은 전용 주차장",
+      near:["카페나스"],
+      query:"춘천 샘밭막국수 본점" },
+    { name:"명가막국수",
+      desc:"'맛있는 녀석들' 방송에 나온 곳.",
+      hours:"10:00 – 21:00",
+      parking:"가능",
+      near:["어스17"],
+      query:"춘천 명가막국수" }
+  ],
+  cafe: [
+    { name:"어스17",
+      desc:"소양강이 보이는 리버뷰 카페.",
+      hours:"11:00 – 21:30",
+      off:"연중무휴",
+      parking:"대형 주차장 (1, 2구역)",
+      notes:["유람선 선착장에서 차로 약 6분"],
+      tags:["리버뷰","블루리본"],
+      near:["통나무집닭갈비 본점"],
+      map:"https://map.naver.com/p/entry/place/36331492",
+      query:"춘천 어스17" },
+    { name:"카페나스",
+      desc:"소양강과 산이 보이는 뷰. 와플, 크로플 있음.",
+      hours:"11:00 – 21:00",
+      off:"목요일 정기휴무",
+      parking:"가능",
+      notes:["애견동반 가능, 매장에 강아지가 있을 수 있음"],
+      tags:["애견동반"],
+      near:["소양댐 계춘닭갈비"],
+      map:"https://map.naver.com/p/entry/place/31970079",
+      query:"춘천 카페나스" },
+    { name:"꽈베르마망",
+      hours:"11:00 시작",
+      off:"매달 5번째 월, 화요일 정기휴무",
+      near:["샘밭막국수 본점"],
+      query:"춘천 꽈베르마망" }
+  ]
+};
+/* ===================================================== */
+
+const CATS = [
+  { key:"spot", label:"관광지" },
+  { key:"food", label:"식당" },
+  { key:"cafe", label:"카페" }
+];
+
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $ = id => document.getElementById(id);
+
+if (TRIP.sub) $("tripSub").textContent = TRIP.sub; else $("tripSub").remove();
+$("tripTitle").textContent = TRIP.title;
+if (TRIP.note) $("tripNote").textContent = TRIP.note; else $("tripNote").remove();
+if (TRIP.bye) $("tripBye").textContent = TRIP.bye; else $("tripBye").closest("footer").remove();
+
+const tabs = $("tabs");
+tabs.innerHTML = CATS.map(c => `<button class="tab" role="tab" data-k="${c.key}">${c.label}</button>`).join("");
+
+// 이름으로 장소가 어느 탭에 있는지 찾기
+const findCat = name => CATS.find(c => (PLACES[c.key] || []).some(p => p.name === name))?.key;
+const idOf = name => "p-" + encodeURIComponent(name).replace(/%/g, "");
+
+function place(p){
+  const q = encodeURIComponent(p.query || p.name);
+  const memo = p.memo || (p.must ? "강추" : "");
+  const naver = p.map || `https://map.naver.com/p/search/${q}`;
+  const rows = [
+    ["시간", p.hours && esc(p.hours)],
+    ["휴무", p.off && esc(p.off)],
+    ["전화", p.phone && `<a href="tel:${esc(p.phone.replace(/[^0-9]/g, ""))}">${esc(p.phone)}</a>`],
+    ["주차", p.parking && esc(p.parking)],
+    ["근처", p.near?.length && p.near.map(n => findCat(n)
+        ? `<button class="near" data-go="${esc(n)}">${esc(n)}</button>` : esc(n)).join(", ")]
+  ].filter(r => r[1]);
+  return `
+  <article class="place${p.must ? " must" : ""}" id="${idOf(p.name)}">
+    ${p.img ? `<img class="photo" src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy">` : ""}
+    <h2 class="name">${esc(p.name)}</h2>${memo ? `<span class="memo">${esc(memo)}</span>` : ""}
+    ${p.desc ? `<p class="desc">${esc(p.desc)}</p>` : ""}
+    ${rows.length ? `<dl class="facts">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>` : ""}
+    ${p.notes?.length ? `<ul class="notes">${p.notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
+    ${p.tags?.length ? `<p class="tags">${p.tags.map(t => "#" + esc(t)).join("  ")}</p>` : ""}
+    <div class="btns">
+      <a class="btn" href="${esc(naver)}" target="_blank" rel="noopener">네이버 지도</a>
+      ${p.ref
+        ? `<a class="btn" href="${esc(p.ref)}" target="_blank" rel="noopener">참고 블로그</a>`
+        : `<a class="btn" href="https://map.kakao.com/?q=${q}" target="_blank" rel="noopener">카카오맵</a>`}
+    </div>
+  </article>`;
+}
+
+// '근처' 이름 누르면 그 장소로 이동
+document.addEventListener("click", e => {
+  const b = e.target.closest(".near"); if (!b) return;
+  const name = b.dataset.go, key = findCat(name);
+  render(key);
+  const el = document.getElementById(idOf(name));
+  if (!el) return;
+  const navH = document.querySelector("nav").offsetHeight;
+  scrollTo({ top: el.getBoundingClientRect().top + scrollY - navH - 12, behavior: "smooth" });
+  el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash");
+});
+
+function render(key){
+  tabs.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t.dataset.k === key));
+  const items = PLACES[key] || [];
+  $("list").innerHTML = items.length ? items.map(place).join("") : '<p class="empty">아직 후보가 없어</p>';
+  try{ history.replaceState(null, "", "#" + key); }catch(e){}
+}
+
+tabs.addEventListener("click", e => {
+  const t = e.target.closest(".tab"); if(!t) return;
+  render(t.dataset.k);
+  const navTop = document.querySelector("nav").offsetTop;
+  if (scrollY > navTop) scrollTo({ top: navTop });
+});
+
+const start = (location.hash || "").slice(1);
+render(CATS.some(c => c.key === start) ? start : "spot");
+</script>
+</body>
+</html>
